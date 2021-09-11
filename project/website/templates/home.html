@@ -11,6 +11,7 @@
     <p>Enter you website name:</p>
     <form action="add" method="POST">
         {% csrf_token %}
+        <input type="hidden" name="redirect" value="false" id="redirect">
         <div class="row">
             <div class="col">
                 <input type="text" list="URL_name" Placeholder="Search URL.." class="form-control" name="url_for" id="input-website-name">
@@ -47,9 +48,16 @@
         // defining minimum character for search box
         delay: 200,
         // we use delay to query from url in miliseconds
+
+        select: afterSelected
         
             });
     });
+
+    // when auto complete is selected we will try to change redirect input value to true
+    function afterSelected(event, ui) {
+        $('#redirect').val(true);
+    }
 </script>
 
 {% endblock %}

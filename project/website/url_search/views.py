@@ -5,6 +5,7 @@ from django.db import connection
 from django.db.models import Q 
 from url_search.models import Url_list
 import json
+from django.shortcuts import redirect
 # Create your views here.
 def home(request):
 
@@ -13,7 +14,11 @@ def home(request):
 
 def add(request):    
     val1 = request.POST['url_for']
+    redirectStatus = request.POST.get('redirect', None)
 
+    if redirectStatus == 'true':
+        return redirect("https://"+val1+"/")
+        
     results = Url_list.objects.filter(Q(name__startswith=val1))
 
     if results:
